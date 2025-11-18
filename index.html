@@ -19,7 +19,7 @@ video#fondo {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      z-index: -1;
+      z-index: 0;
     }
 	  
 .wrapper {
@@ -32,12 +32,14 @@ video#fondo {
   }	
 
   body {
-      margin: 0;
-    height: 540px;
-    width: 1800px;
-    font-family: sans-serif;
-    position: relative; /* ¡Importante! */
-    overflow: hidden; /* Por si acaso */
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #000;
+  position: relative;
+  font-family: sans-serif;
+  position: relative; /* ¡Importante! */
+  overflow: hidden; 
   }
 
     .contenedor-marcador {
@@ -111,5 +113,6 @@ video#fondo {
   </script>
 </body>
 </html>
+
 
 
