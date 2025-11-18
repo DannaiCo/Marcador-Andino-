@@ -3,87 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <title>Marcador</title>
-
-  <!-- Bloquea el zoom del navegador igual que tu otro proyecto -->
+  <meta http-equiv="refresh" content="60">
   <meta name="viewport" content="width=1800, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
   <style>
-    body, html {
+    html, body {
       margin: 0;
       padding: 0;
+      background: #000;
       overflow: hidden;
       font-family: "Open Sans", sans-serif;
-
-      /* 🔒 ANTI-ZOOM EXACTO DEL OTRO CÓDIGO */
-      width: 80vw;
-      height: 80vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #000;
     }
 
-    /* Contenedor fijo que NO se deforma con el zoom */
-    #contenedor-fijo {
-      position: relative;
-      width: 1800px;
-      height: 540px;
-      overflow: hidden;
-    }
-
-    /* Fondo de video fijo sin moverse al hacer zoom */
-    #fondo {
+    video#fondo {
       position: absolute;
       top: 0;
       left: 0;
-      width: 1800px;
-      height: 540px;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       z-index: 0;
     }
 
-    /* Contenedor del marcador */
+    .wrapper {
+      width: 1800px;
+      height: 540px;
+      position: relative;
+      margin: 0 auto;
+      transform: scale(1);
+      transform-origin: top left;
+    }
+
     .contenedor-marcador {
-      position: absolute;
+      position: relative;
       width: 100%;
       height: 100%;
-      z-index: 2;
     }
 
     .score {
       position: absolute;
+      font-size: 100px;
       font-weight: bold;
       color: white;
-      font-size: 100px;
+    }
+
+    #score-colombia {
+      left: 758px;
+      top: 360px;
       transform: translate(-50%, -50%);
     }
 
     #score-brasil {
       left: 190px;
       top: 360px;
-    }
-
-    #score-colombia {
-      left: 758px;
-      top: 360px;
+      transform: translate(-50%, -50%);
     }
   </style>
 </head>
 
 <body>
+  <video autoplay muted loop id="fondo">
+    <source src="fondo.mp4" type="video/mp4">
+    Tu navegador no soporta el video.
+  </video>
 
-  <!-- 🔒 Todo el contenido queda dentro del contenedor anti-zoom -->
-  <div id="contenedor-fijo">
-
-    <video autoplay muted loop id="fondo">
-      <source src="fondo.mp4" type="video/mp4">
-    </video>
-
+  <div class="wrapper">
     <div class="contenedor-marcador">
-      <div id="score-brasil" class="score">-</div>
       <div id="score-colombia" class="score">-</div>
+      <div id="score-brasil" class="score">-</div>
     </div>
-
   </div>
 
   <script>
@@ -91,29 +79,26 @@
       try {
         const response = await fetch("https://raw.githubusercontent.com/DannaiCo/Marcador-eliminatoria/main/Fuente%20de%20Marcador.html");
         const contenido = await response.text();
+
         const tempDiv = document.createElement("div");
         tempDiv.innerHTML = contenido;
 
-        const brasil = tempDiv.querySelector("#score-brasil").innerText;
         const colombia = tempDiv.querySelector("#score-colombia").innerText;
+        const brasil = tempDiv.querySelector("#score-brasil").innerText;
 
-        document.getElementById("score-brasil").innerText = brasil;
         document.getElementById("score-colombia").innerText = colombia;
+        document.getElementById("score-brasil").innerText = brasil;
+
       } catch (e) {
-        document.getElementById("score-brasil").innerText = "?";
         document.getElementById("score-colombia").innerText = "?";
+        document.getElementById("score-brasil").innerText = "?";
       }
     }
 
     cargarMarcador();
   </script>
-
 </body>
 </html>
-
-
-
-
 
 
 
