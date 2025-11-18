@@ -3,93 +3,89 @@
 <head>
   <meta charset="UTF-8">
   <title>Marcador</title>
-  <meta http-equiv="refresh" content="60"> <!-- Actualiza cada minuto -->
+
+  <!-- Bloquea el zoom del navegador igual que tu otro proyecto -->
   <meta name="viewport" content="width=1800, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
   <style>
-html, body {
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-  background: #000;
-}
-video#fondo {
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: "Open Sans", sans-serif;
+
+      /* 🔒 ANTI-ZOOM EXACTO DEL OTRO CÓDIGO */
+      width: 80vw;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+    }
+
+    /* Contenedor fijo que NO se deforma con el zoom */
+    #contenedor-fijo {
+      position: relative;
+      width: 1800px;
+      height: 540px;
+      overflow: hidden;
+    }
+
+    /* Fondo de video fijo sin moverse al hacer zoom */
+    #fondo {
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 1800px;
+      height: 540px;
       object-fit: cover;
       z-index: 0;
     }
-	  
-.wrapper {
-  width: 1800px;
-  height: 540px;
-  position: relative;
-  margin: 0 auto;
-  transform: scale(1);
-  transform-origin: top left;
-  }	
 
-  body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background: #000;
-  position: relative;
-  font-family: sans-serif;
-  position: relative; /* ¡Importante! */
-  overflow: hidden; 
-  }
-
+    /* Contenedor del marcador */
     .contenedor-marcador {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      position: absolute;
       width: 100%;
-      position: relative;
+      height: 100%;
+      z-index: 2;
     }
 
     .score {
-	position: absolute;
-      font-size: 50px;
+      position: absolute;
       font-weight: bold;
-      color: #00157F;
+      color: white;
+      font-size: 100px;
+      transform: translate(-50%, -50%);
     }
 
     #score-brasil {
-  position: absolute;
-  left: 600px;
-  top: 300px;
-  transform: translate(-50%, -50%);
-  font-size: 100px;
-  color: white;
-  font-weight: bold;
+      left: 600px;
+      top: 300px;
     }
 
     #score-colombia {
-  position: absolute;
-  left: 100px;
-  top: 300px;
-  transform: translate(-50%, -50%);
-  font-size: 100px;
-  color: white;
-  font-weight: bold;
-}
-
+      left: 100px;
+      top: 300px;
+    }
   </style>
 </head>
+
 <body>
-  <video autoplay muted loop id="fondo">
-    <source src="fondo.mp4" type="video/mp4">
-    Tu navegador no soporta el video.
-  </video>
-  <div class="wrapper">
+
+  <!-- 🔒 Todo el contenido queda dentro del contenedor anti-zoom -->
+  <div id="contenedor-fijo">
+
+    <video autoplay muted loop id="fondo">
+      <source src="fondo.mp4" type="video/mp4">
+    </video>
+
     <div class="contenedor-marcador">
       <div id="score-brasil" class="score">-</div>
       <div id="score-colombia" class="score">-</div>
     </div>
+
   </div>
+
   <script>
     async function cargarMarcador() {
       try {
@@ -111,8 +107,10 @@ video#fondo {
 
     cargarMarcador();
   </script>
+
 </body>
 </html>
+
 
 
 
